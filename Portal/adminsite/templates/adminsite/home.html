@@ -1,0 +1,28 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=b, initial-scale=1.0">
+    <title>welcome</title>
+    <link rel="stylesheet" href="{% static 'adminsite/css/home.css' %}">
+</head>
+<body>
+    <h1>Welcome to attendance portal</h1>
+    <a href="{% url 'adminsite:attendance'%}"><button type="submit"> Check Attendance</button></a>
+    <br>
+    <a href="{% url 'adminsite:leave' %}"><button type="submit">Check leave requests</button></a>
+    <br>
+    <a href="{% url 'adminsite:add' %}"><button type="submit">Add Employee</button></a>
+    <br>
+    <a href="{% url 'adminsite:update' %}"><button type="submit">Update Record</button></a> 
+    <br>
+   <a href="{% url 'adminsite:delete' %}"><button type="submit">Delete Employee</button></a> 
+   <br>
+   <a href="{% url 'adminsite:logout' %}"><button type="submit">Log Out </button></a> 
+    
+</body>
+</html>
