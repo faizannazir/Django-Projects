@@ -9,8 +9,12 @@ def home(request):
 
 
 class MyView(View):
-    def get(self,request):
-        return HttpResponse(f"{request.method}")
+    def get(self, request):
+        return HttpResponse(f"{request.method} <form method='post'>" +
+                        "{% csrf_token %}" +
+                        """<input type='submit'>
+                        </form>""")
+
     
     def post(self,request):
         return HttpResponse(f"{request.method}")
