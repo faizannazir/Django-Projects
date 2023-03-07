@@ -23,7 +23,7 @@
         {% for message in messages %}
         <h5 style="color: red;">{{ message }}</h5>
         {% endfor %}
-        <form action="signup" method="post">
+        <form action="" method="post">
             {% csrf_token %}
             <div>
                 <img src="http://bims01.nayatel.net:8888/public/logo.png" alt="BimsLogo" width="180px">
@@ -64,7 +64,7 @@
 
             
         <h3>Have an account</h3>
-        <a href="{% url 'login' %}"> <button type="button">Sign in</button></a>
+        <a href="{% url 'mysqlapp:login' %}"> <button type="button">Sign in</button></a>
 
         </form>
         <!-- <h3>Have an account</h3>

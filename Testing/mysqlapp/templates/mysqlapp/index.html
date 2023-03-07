@@ -7,6 +7,17 @@
     <title>Document</title>
 </head>
 <body>
+    {% if user %}
+    <h1>Welcome {{ request.user }}</h1>
+    {% else %}
     <h1 align="center">Home Page</h1>
+    {% endif %}
+
+
+<form action="" method="post" enctype="multipart/form-data">
+    {{form.as_div}}
+    <input type="submit" value="Signup">
+</form>
+
 </body>
 </html>
