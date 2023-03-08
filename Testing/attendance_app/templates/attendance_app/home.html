@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+
+  <h2>Welcome {{ employee.user.username }}</h2>
+  <p><strong>ID:</strong> {{ employee.id }}</p>
+  <p><strong>Department:</strong> {{ employee.department }}</p>
+  <p><strong>Date of Birth:</strong> {{ employee.date_of_birth }}</p>
+  <p><strong>Joining Date:</strong> {{ employee.joining_date }}</p>
+  {%comment %}
+  {%endcomment%}
+  <p><img src="{% static employee.picture.url %}" alt="{{employee.user.username}}"></p>
+    <h3>Attendance Information</h3>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Entrance Time</th>
+          <th>Exit Time</th>
+          <th>Total Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for attendance in attendances %}
+          <tr>
+            <td>{{ attendance.date }}</td>
+            <td>{{ attendance.entrance_time }}</td>
+            {% if attendance.exit_time is not None %}
+                 <td>{{ attendance.exit_time }}</td>
+            {% else %}
+                <td>-</td>
+            {% endif %}
+
+            {% if attendance.total_time is not None %}
+                <td>{{ attendance.total_time }} minutes</td>
+            {% else %}
+                <td>-</td>
+            {% endif %}
+            
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="4">No attendance information available.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    
+</body>
+</html>

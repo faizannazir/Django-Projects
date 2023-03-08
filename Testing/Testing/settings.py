@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # Installed apps
     'mysqlapp',
     'accounts',
+    'attendance_app',
 ]
 
 MIDDLEWARE = [
@@ -118,12 +119,14 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Karachi'
+# 'UTC'
 
 USE_I18N = True
 
 USE_TZ = True
 
+DATE_FORMAT = 'd-m-Y'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
@@ -139,6 +142,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # AUTH_USER_MODEL = 'accounts.CustomUser'
 
 AUTHENTICATION_BACKENDS = [
-    'accounts.email_backend.EmailBackend',
-    'django.contrib.auth.backends.ModelBackend',
+    'mysqlapp.backends.EmailBackend',
+    # 'accounts.email_backend.EmailBackend',
+    # 'django.contrib.auth.backends.ModelBackend',
 ]
+
+
+
+MEDIA_URL = '/pictures/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'pictures')

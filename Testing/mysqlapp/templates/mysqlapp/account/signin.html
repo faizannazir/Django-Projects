@@ -27,7 +27,7 @@
         {% endfor %}
         <form action="{% url 'login' %}" method="post">
             {% csrf_token %}
-            <div>
+            <!-- <div>
                 <img src="http://bims01.nayatel.net:8888/public/logo.png" alt="BimsLogo" width="180px">
             </div>
             <div>
@@ -46,8 +46,8 @@
             <div>
                 <input type="submit" id="signin" value="Sign in">
                 <br>
-            </div>
-            
+            </div> -->
+            {{form.as_div}}
         <h3>Don't have account?</h3>
         <a href="{% url 'register' %}"> <button type="button">Sign up</button></a>
             
