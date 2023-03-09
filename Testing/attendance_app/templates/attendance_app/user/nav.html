@@ -1,86 +1,12 @@
+<!-- {% load static %} -->
+
+<link rel="stylesheet" href="{% static 'attendance_app/user/css/nav.css' %}">  
+
 <nav>
     <ul>
-        <li><a href="#">Home</a> </li>
+        <li><a href="{% url 'home' %}">Home</a> </li>
         <li><a href="viewattendance.html">View Attendance</a> </li>
-        <li><a href="applyleave.html">Apply Leave</a> </li>
-        <li><a href="{% url 'profile' %}">Profile</a></li>
+        <li><a href="{% url 'profile' %}">Profile</a></li><li>
+        <a href="{% url 'logout' %}" style="width: 100%;color: red; border-radius: 10px;">Logout</a> </li>
     </ul>
 </nav>
-
-<style>
-    /*  Nav bar  */
-nav {
-    background-color: #333;
-    padding: 5px;
-    margin-bottom: 10px;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 20px;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #fff;
-    font-size: large;
-    font-weight: bold;
-    text-transform: uppercase;
-    padding: 10px;
-    margin-top: 5px;
-}
-
-nav ul li a:hover {
-    color: #00ce9f;
-}
-/*  */
-
-/* for tablets */
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-   
-   nav ul
-   {
-       flex-wrap: wrap;
-       gap: 30px;
-   }
-  
-   nav ul li
-   {
-       margin: 10px;
-   }
-}
-
-
-/* for mobile phones */
-@media only screen and (max-width: 767px) {
-
-   
-nav
-{
-    margin: 0;
-    margin-bottom: 5px;
-    padding: 0;
-}
-
-
-nav ul
-{
-    border-bottom: 5px solid gray;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-nav ul li
-{
-    margin: 10px;
-}
-
-nav ul li a
-{
-    padding: 5px;
-}
-}
-
-</style>

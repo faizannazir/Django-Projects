@@ -12,7 +12,7 @@ User.USERNAME_FIELD = 'email'
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,related_name="employee")
     department = models.CharField(max_length=50)
-    picture = models.ImageField(upload_to='static/pictures')
+    picture = models.ImageField(upload_to='pictures')
     date_of_birth = models.DateField()
     joining_date = models.DateField()
 
@@ -34,11 +34,11 @@ class Attendance(models.Model):
         return self.employee.user.username + ' - ' + str(self.date)
 
 
-class Leave(models.Model):
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE,related_name="leaves")
-    date = models.DateField()
-    reason = models.CharField(max_length=200)
-    approved = models.BooleanField(default=False)
+# class Leave(models.Model):
+#     employee = models.ForeignKey(Employee, on_delete=models.CASCADE,related_name="leaves")
+#     date = models.DateField()
+#     reason = models.CharField(max_length=200)
+#     approved = models.BooleanField(default=False)
 
-    def __str__(self):
-        return self.employee.user.username + ' - ' + self.reason
+#     def __str__(self):
+#         return self.employee.user.username + ' - ' + self.reason

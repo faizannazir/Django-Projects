@@ -1,9 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Leave
 
-from django.utils import timezone
+
 
 class EmployeeRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -21,12 +20,3 @@ class EmployeeLoginForm(forms.Form):
     email = forms.EmailField(max_length=50)
     password = forms.CharField(widget=forms.PasswordInput)
 
-
-class ApplyLeave(forms.ModelForm):
-    class Meta:
-        model = Leave
-        fields = ('date','reason')
-
-    widgets = {
-        'date':forms.DateInput(attrs={type:'date','min':timezone.now().date,'value':timezone.now().date})
-    }

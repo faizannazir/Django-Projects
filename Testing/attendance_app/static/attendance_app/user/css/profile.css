@@ -8,36 +8,6 @@ body {
     font-size: 20px;
 }
 
-/*  Nav bar  */
-nav {
-    background-color: #333;
-    padding: 5px;
-    margin-bottom: 10px;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 20px;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #fff;
-    font-size: large;
-    font-weight: bold;
-    text-transform: uppercase;
-    padding: 10px;
-    margin-top: 5px;
-}
-
-nav ul li a:hover {
-    color: #00ce9f;
-}
-/*  */
-
 /* User information  */
 
 .container {
@@ -74,9 +44,9 @@ nav ul li a:hover {
 
 .container .user-info #img-th #user-img {
     margin: 0;
-    padding: 5px;
-    width: 100%;
-    border-radius: 50%;
+    padding: 15px;
+    /* width: 100%; */
+    border-radius: 70%;
 }
 
 
@@ -131,14 +101,6 @@ th {
 /* for tablets */
 @media only screen and (min-width: 768px) and (max-width: 991px) {
     
-    nav ul
-    {
-        gap: 30px;
-    }
-
-    nav ul li {
-        margin: 10px;
-    }
 
     .container {
         align-items: center;
@@ -169,26 +131,11 @@ th {
 @media only screen and (max-width: 767px) {
 
 
-    nav,
     .container {
         margin: 0;
         margin-bottom: 5px;
         padding: 0;
     }
-    
-    nav ul {
-        border-bottom: 5px solid gray;
-        flex-wrap: wrap;
-    }
-
-    nav ul li {
-        margin: 10px;
-    }
-
-    nav ul li a {
-        padding: 5px;
-    }
-
     .container div {
         align-items: center;
         text-align: center;
