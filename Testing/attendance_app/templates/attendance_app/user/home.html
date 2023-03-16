@@ -2,6 +2,11 @@
 
 {% load static %}
 
+{% block title %}
+
+<title>Home</title>
+
+{% endblock %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'attendance_app/user/css/home.css' %}">
 {% endblock %}
@@ -17,7 +22,8 @@
         <table>
             <tr>
                 <th colspan="4">User Information</th>
-                <th rowspan="4" id="img-th"><img src="{{employee.picture.url}}" alt="{{employee.user.username}}" id="user-img"></th>
+                <th rowspan="4" id="img-th"><img src="{{employee.picture.url}}" alt="{{employee.user.username}}"
+                        id="user-img"></th>
             </tr>
             <tr>
                 <th>Name</th>
@@ -33,7 +39,7 @@
                 <td>{{ employee.date_of_birth }}</td> -->
                 <th>Status</th>
                 {% if employee.user.is_active %}
-                    <td> Active </td>
+                <td> Active </td>
                 {% endif %}
             </tr>
             <tr>
@@ -59,38 +65,42 @@
                     <th>Entrance Time</th>
                     <th>Exit Time</th>
                     <th>Total Time</th>
-                    <!-- <th>Attendance</th> -->
+                    <th>Attendance</th>
                 </tr>
             </thead>
 
             <tbody>
                 {% for attendance in attendances %}
-                  <tr>
+                <tr>
                     <td>{{ attendance.date }}</td>
                     <td>{{ attendance.entrance_time }}</td>
                     {% if attendance.exit_time is not None %}
-                         <td>{{ attendance.exit_time }}</td>
+                    <td>{{ attendance.exit_time }}</td>
                     {% else %}
-                        <td>-</td>
+                    <td>-</td>
                     {% endif %}
-        
+
                     {% if attendance.total_time is not None %}
-                        <td>{{ attendance.total_time }} minutes</td>
+                    <td>{{ attendance.total_time }} minutes</td>
                     {% else %}
-                        <td>-</td>
+                    <td>-</td>
                     {% endif %}
-                    
-                  </tr>
+                    {% if attendance.status is not None %}
+                    <td>{{ attendance.status }}</td>
+                    {% else %}
+                    <td>-</td>
+                    {% endif %}
+                </tr>
                 {% empty %}
-                  <tr>
-                    <td colspan="4">No attendance information available.</td>
-                  </tr>
+                <tr>
+                    <td colspan="5">No attendance information available.</td>
+                </tr>
                 {% endfor %}
-              </tbody>
+            </tbody>
         </table>
     </div>
     <div class="link">
-        <a id="attendance-detail" href="viewattendance.html">View-more</a>
+        <a id="attendance-detail" href="{% url 'attendance' %}">View-more</a>
     </div>
 </div>
 

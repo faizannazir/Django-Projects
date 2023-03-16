@@ -4,9 +4,8 @@
 
 <nav>
     <ul>
-        <li><a href="{% url 'home' %}">Home</a> </li>
-        <li><a href="viewattendance.html">View Attendance</a> </li>
-        <li><a href="{% url 'profile' %}">Profile</a></li><li>
-        <a href="{% url 'logout' %}" style="width: 100%;color: red; border-radius: 10px;">Logout</a> </li>
+        <li><a href="{% url 'home' %}">Home</a><a href="{% url 'attendance' %}">View Attendance</a> </li>
+
+        <li><a href="{% url 'logout' %}" style="width: 100%;color: red; border-radius: 10px;">Logout</a> </li>
     </ul>
 </nav>

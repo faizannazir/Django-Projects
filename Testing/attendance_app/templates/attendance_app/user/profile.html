@@ -2,6 +2,10 @@
 
 {% load static %}
 
+{% block title %}
+<title>{{ employee.user.username }} | Profile</title>
+{% endblock %}
+
 {% block css %}
  <link rel="stylesheet" href="{% static 'attendance_app/user/css/profile.css' %}">  
 {% endblock %}

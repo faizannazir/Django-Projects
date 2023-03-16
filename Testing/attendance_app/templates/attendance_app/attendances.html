@@ -1,0 +1,91 @@
+{% extends 'attendance_app/base.html' %}
+
+{% load static %}
+
+{% block title %}
+
+<title>Attendance</title>
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'attendance_app/admin/css/attendance.css' %}">
+{% endblock %}
+
+
+
+
+{% block body%}
+
+<div class="filter-container">
+
+    <form action="">
+        <!-- {% csrf_token %} -->
+        <div class="form-items">
+            {{filter.form.employee.label_tag}}
+            <br>
+            {{filter.form.employee}}
+            <!-- <input type="date" name="date" id="start-date" required> -->
+        </div>
+        <div class="form-items">
+            {{filter.form.start_date.label_tag}}
+            <br>
+            {{filter.form.start_date}}
+            <!-- <input type="date" name="date" id="start-date" required> -->
+        </div>
+        <br>
+        <div class="form-items">
+            {{filter.form.end_date.label_tag}}
+            <br>
+            {{filter.form.end_date}}
+            <!-- <input type="date" name="end-date" id="end-date" required> -->
+        </div>
+        <br>
+        <div class="form-items">
+            <!-- <br> -->
+            <input type="submit" value="Apply Filter" id="filter-btn">
+        </div>
+        <br>
+
+    </form>
+</div>
+<div id="error"></div>
+<br>
+
+<div class="container">
+    <div class="attendance">
+        <h1>Attendance Record</h1>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Entrance Time</th>
+                <th>Exit Time</th>
+                <th>Total Time</th>
+            </tr>
+            {% for attendance in attendanceRecord %}
+            <tr>
+                <td>{{attendance.employee.id}}</td>
+                <td>{{ attendance.employee.user.username }}</td>
+                <td>{{attendance.date}}</td>
+                <td>{{attendance.entrance_time}}</td>
+                {% if attendance.exit_time is not None %}
+                <td>{{ attendance.exit_time }}</td>
+                {% else %}
+                <td>-</td>
+                {% endif %}
+
+                {% if attendance.total_time is not None %}
+                <td>{{ attendance.total_time }} minutes</td>
+                {% else %}
+                <td>-</td>
+                {% endif %}
+            </tr>
+            {% empty %}
+            <td colspan="6"> No Attendance record </td>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+<script src="{% static 'attendance_app/user/js/attendance.js' %}"></script>
+{% endblock %}

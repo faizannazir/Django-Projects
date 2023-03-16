@@ -1,17 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h2>Register</h2>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
-</body>
-</html>
+{% extends 'attendance_app/base.html' %}
+
+{% load static %}
+{% block title %}
+
+<title>Add Employee </title>
+
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'attendance_app/admin/css/add.css' %}">
+{% endblock %}
+
+{% block body %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+        {{ form.username.label_tag }}
+        {{ form.username }} <br>
+    </div>
+    <div>
+        {{ form.first_name.label_tag }}
+        {{ form.first_name }} <br>
+    </div>
+    <div>
+        {{ form.last_name.label_tag }}
+        {{ form.last_name }} <br>
+    </div>
+    <div>
+        {{ form.email.label_tag }}
+        {{ form.email }} <br>
+    </div>
+    <div>
+        {{ form.department.label_tag }}
+        {{ form.department }} <br>
+    </div>
+    <div>
+        {{ form.date_of_birth.label_tag }}
+        {{ form.date_of_birth }} <br>
+    </div>
+    <div>
+        {{ form.joining_date.label_tag }}
+        {{ form.joining_date }} <br>
+    </div>
+    <div>
+        {{ form.picture.label_tag }}
+        {{ form.picture }} <br>
+    </div>
+    <div>
+
+        {{ form.password1.label_tag }}
+        {{ form.password1 }} <br>
+    </div>
+    <div>
+
+        {{ form.password2.label_tag }}
+        {{ form.password2 }} <br>
+    </div>
+    <div>
+        <input type="submit" id="signin" value="Submit">
+        <br>
+    </div>
+    <br>
+    {% for message in messages %}
+    {{message}}
+    {% endfor %}
+</form>
+{% endblock %}

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Installed apps
     'attendance_app',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -143,11 +144,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #  change to custom backend
 AUTHENTICATION_BACKENDS = [
     'attendance_app.backends.EmailBackend',
-    # 'accounts.email_backend.EmailBackend',
-    # 'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 
 
-MEDIA_URL = '/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'pictures')
+MEDIA_URL = '/images/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')

@@ -1,0 +1,9 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'attendance_app/user/css/nav.css' %}">  
+<nav>
+    <ul>
+
+        <li> <a href="{% url 'home' %}">Dashboard</a> </li>
+        <li> <a href="{% url 'logout' %}">logout</a></li>
+    </ul>
+</nav>

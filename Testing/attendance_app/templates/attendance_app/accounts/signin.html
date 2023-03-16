@@ -1,0 +1,65 @@
+{% extends 'attendance_app/accounts/base.html' %}
+{% load static %}
+
+{% block title %} <title>signin</title> {% endblock %}
+
+{% block body%}
+
+
+    <div class="container">
+        <h1>Sign In</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            {% for message in messages %}
+                    <p style="color:red; font-size: 16px;">{{ message }}</p>
+            {% endfor %}
+            <div>
+                <img src="http://bims01.nayatel.net:8888/public/logo.png" alt="BimsLogo" width="180px">
+            </div>
+            <div>
+                <!-- <br>
+                <label for="user_email">Email</label>
+                <br>
+                <input type="email" id="user_email" required minlength="3" autofocus name="email"> 
+                <br>  
+                <output id="email-error"></output>
+            -->
+                <br>
+                <label for="user_email">{{form.email.label}}</label>
+                <br>
+                {{form.email}}
+                <br>
+                <output id="email-error"></output>
+                
+            </div>
+            <div>
+                <!-- <label for="user_pass">Password</label>
+                <br>
+                <input type="password" id="user_pass" required minlength="8" name="password">
+                 <br>
+                  <output id="pass-error"></output> -->
+                  <br>
+                  <label for="user_pass">{{form.password.label}}</label>
+                  <br>
+                  {{form.password}}
+                  <br>
+                  <output id="pass-error"></output>
+                <input type="checkbox" id="show"> Show Password<br>
+            </div>
+            <div>
+                <a href="forgot.html" style="color: blue;">Forgotten Password</a>
+            </div>
+            <div>
+                <input type="submit" id="signin" value="Sign in">
+                <br>
+            </div>
+            
+        <!-- <h3>Don't have account?</h3>
+        <a href="signup.html"> <button type="button">Sign up</button></a>
+             -->
+        </form>
+    </div>
+
+    <!-- Java Script -->
+    <script src="{% static 'attendance_app/user/js/signin.js' %}"></script>
+{% endblock %}

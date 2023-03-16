@@ -6,7 +6,6 @@
 
 body {
     font-size: 20px;
-
 }
 
 /* User information  */
@@ -14,7 +13,8 @@ body {
     display: flex;
     flex-direction: column;
     margin: 10px auto;
-    align-items: center;
+    border-bottom: 1px solid gray;
+    /* align-items: center; */
     /* border: 5px solid gray; */
     /* background-color: #eee; */
 }
@@ -104,17 +104,18 @@ td {
     margin: 30px;
     padding: 10px;
     border: 2px solid #00ce9f;
-    border-radius: 10px;
+    border-radius: 30px;
     width: 250px;
     text-align: center;
     font-size: x-large;
-    color: #006400;
+    color: #fff;
+    background-color: #3A9;
     text-transform: uppercase;
 }
 
 .user-attendance .link a:hover {
     background-color: #00ce9f;
-    color: white;
+    border-color: #3A9;
 }
 
 
