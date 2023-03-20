@@ -9,6 +9,9 @@ from .forms import EmployeeRegistrationForm, EmployeeLoginForm,EmployeeUpdateFor
 from .filters import AttendanceFilter,AdminAttendanceFilter
 
 
+
+
+
 @login_required(login_url='login')
 def register_employee(request):
     if request.user.is_superuser :
@@ -41,7 +44,7 @@ def updateEmployee(request,pk):
         # Employee.objects.get(id=pk)
         form = EmployeeUpdateForm(instance=employee)
         if request.method == 'POST':
-            form = EmployeeUpdateForm(request.POST,instance=employee)
+            form = EmployeeUpdateForm(request.POST,request.FILES,instance=employee)
             if form.is_valid():
                     employee= form.save()
                     return redirect('home')
@@ -49,6 +52,8 @@ def updateEmployee(request,pk):
         return render(request, 'attendance_app/register.html',context=context)
     else:
         return redirect('home')
+    
+
 
 @login_required(login_url='login')
 def delete(request,pk):
@@ -86,27 +91,12 @@ def login_employee(request):
 
 
 
-# def loginForm(request):
-#     if request.user.is_authenticated:
-#         return redirect('home')
-#     if request.method == 'POST':
-#             email = request.POST['email']
-#             password = request.POST['password']
-#             user = authenticate(email=email, password=password)
-#             if user is not None:
-#                 login(request, user)
-#                 return redirect('home')
-#     return render(request, 'attendance_app/accounts/signin.html',context={})
-
-
 @login_required(login_url='/login/')
 def home(request):
-    if request.user.is_staff or request.user.is_superuser:
+    if request.user.is_superuser:
         employees = Employee.objects.all()
         attendances = Attendance.objects.all()
-        # admin = get_object_or_404(User, email=request.user)
         context = {'employees': employees,}
-                #    'attendances': attendances, 'admin': admin
         return render(request, 'attendance_app/home.html', context)
     else:
         employee = get_object_or_404(Employee, user=request.user)
@@ -116,6 +106,70 @@ def home(request):
         attendances = Attendance.objects.filter(employee=employee).order_by('-date')
         context = {'employee': employee, 'attendances': attendances}
         return render(request, 'attendance_app/user/home.html', context)
+
+
+
+
+@login_required(login_url='/login/')
+def attendance(request):
+    if request.user.is_superuser:
+        attendances = Attendance.objects.all()
+        filter = AdminAttendanceFilter(request.GET,attendances)
+        attendances = filter.qs
+        context = {
+                   'attendanceRecord': attendances, 
+                   'filter':filter}
+        return render(request, 'attendance_app/attendances.html', context)
+    else:
+        employee = get_object_or_404(Employee, user=request.user)
+        attendance = employee.attendance.all().order_by('-date')
+        filter = AttendanceFilter(request.GET,attendance)
+        attendance = filter.qs
+        context = {'employee': employee,'filter':filter,'attendanceRecord':attendance}
+        return render(request, 'attendance_app/user/attendance.html', context)
+
+  
+
+@login_required(login_url='/login/')
+def user_logout(request):
+    logout(request)
+    return redirect('login')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# @login_required(login_url='/login/')
+# def profile(request):
+#     if request.user.is_staff or request.user.is_superuser:
+#         return redirect('home')
+#     else:
+#         employee = get_object_or_404(Employee, user=request.user)
+#         context = {'employee': employee}
+#         return render(request, 'attendance_app/user/profile.html', context)
+
+
 
 
 # @login_required(login_url='/login/')
@@ -138,41 +192,14 @@ def home(request):
 #         return render(request, 'attendance_app/applyleave.html', context)
 
 
-@login_required(login_url='/login/')
-def attendance(request):
-    if request.user.is_staff or request.user.is_superuser:
-        attendances = Attendance.objects.all()
-        filter = AdminAttendanceFilter(request.GET,attendances)
-        filter.form.fields['start_date'].label ="Start Date"
-        filter.form.fields['end_date'].label ="End Date"
-        attendances = filter.qs
-        context = {
-                   'attendanceRecord': attendances, 
-                   'filter':filter}
-        return render(request, 'attendance_app/attendances.html', context)
-    else:
-        employee = get_object_or_404(Employee, user=request.user)
-        attendance = employee.attendance.all().order_by('-date')
-        filter = AttendanceFilter(request.GET,attendance)
-        filter.form.fields['start_date'].label ="Start Date"
-        filter.form.fields['end_date'].label ="End Date"
-        attendance = filter.qs
-        context = {'employee': employee,'filter':filter,'attendanceRecord':attendance}
-        return render(request, 'attendance_app/user/attendance.html', context)
-
-  
-
-@login_required(login_url='/login/')
-def profile(request):
-    if request.user.is_staff or request.user.is_superuser:
-        return redirect('home')
-    else:
-        employee = get_object_or_404(Employee, user=request.user)
-        context = {'employee': employee}
-        return render(request, 'attendance_app/user/profile.html', context)
-
-
-@login_required(login_url='/login/')
-def user_logout(request):
-    logout(request)
-    return redirect('login')
+# def loginForm(request):
+#     if request.user.is_authenticated:
+#         return redirect('home')
+#     if request.method == 'POST':
+#             email = request.POST['email']
+#             password = request.POST['password']
+#             user = authenticate(email=email, password=password)
+#             if user is not None:
+#                 login(request, user)
+#                 return redirect('home')
+#     return render(request, 'attendance_app/accounts/signin.html',context={})

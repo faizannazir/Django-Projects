@@ -62,22 +62,18 @@ body {
 
 input[type="submit"] {
 
-    border: 1px solid #00ce9f;
-    text-align: center;
-    color: #006400;
+    text-decoration: none;
+    margin: 20px !important;
+    margin-top: 35px !important;
+    color: #fff;
+    background-color: #3A9;
     text-transform: uppercase;
-    width: 150px;
-    padding: 10px;
-    background-color: white;
-    font-size: 16px;
-    margin-top: 20px;
-    cursor: pointer;
 }
 
 input[type="submit"]:hover {
 
     background-color: #00ce9f;
-    color: white;
+    border-color: #3A9;
 }
 
 
@@ -160,6 +156,11 @@ th {
     {
         height: 180px;
     }
+    input[type="submit"] {
+
+        text-decoration: none;
+        margin-top: 20px;
+    }
 }
 
 /* for mobile phones */
@@ -199,6 +200,11 @@ th {
     table
     {
         margin: 0;
+    }
+    input[type="submit"] {
+
+        text-decoration: none;
+        margin-top: 20px;
     }
 }
 

@@ -4,11 +4,11 @@ from django import forms
 from .models import Attendance
 
 class AttendanceFilter(django_filters.FilterSet):
-    start_date = DateFilter(field_name="date",lookup_expr="gte",widget=forms.DateTimeInput(attrs={
+    start_date = DateFilter(field_name="date",lookup_expr="gte",label="Start Date",widget=forms.DateTimeInput(attrs={
             'type': 'date',
             'id' : 'start-date',
         }))
-    end_date = DateFilter(field_name="date",lookup_expr="lte",widget=forms.DateTimeInput(attrs={
+    end_date = DateFilter(field_name="date",lookup_expr="lte",label="End Date",widget=forms.DateTimeInput(attrs={
             'type': 'date',
             'id' : 'end-date',
         }))
@@ -18,11 +18,11 @@ class AttendanceFilter(django_filters.FilterSet):
 
 
 class AdminAttendanceFilter(django_filters.FilterSet):
-    start_date = DateFilter(field_name="date",lookup_expr="gte",widget=forms.DateTimeInput(attrs={
+    start_date = DateFilter(field_name="date",lookup_expr="gte",label="Start Date",widget=forms.DateTimeInput(attrs={
             'type': 'date',
             'id' : 'start-date',
         }))
-    end_date = DateFilter(field_name="date",lookup_expr="lte",widget=forms.DateTimeInput(attrs={
+    end_date = DateFilter(field_name="date",lookup_expr="lte",label="End Date",widget=forms.DateTimeInput(attrs={
             'type': 'date',
             'id' : 'end-date',
         }))

@@ -60,7 +60,8 @@
                 <th>Date</th>
                 <th>Entrance Time</th>
                 <th>Exit Time</th>
-                <th>Total Time</th>
+                <th>Total Time</th> 
+                <th>Attendance</th>
             </tr>
             {% for attendance in attendanceRecord %}
             <tr>
@@ -75,13 +76,18 @@
                 {% endif %}
 
                 {% if attendance.total_time is not None %}
-                <td>{{ attendance.total_time }} minutes</td>
+                <td>{{ attendance.total_time }}</td>
+                {% else %}
+                <td>-</td>
+                {% endif %}
+                {% if attendance.status is not None %}
+                <td>{{ attendance.status }}</td>
                 {% else %}
                 <td>-</td>
                 {% endif %}
             </tr>
             {% empty %}
-            <td colspan="6"> No Attendance record </td>
+            <td colspan="7"> No Attendance record </td>
             {% endfor %}
         </table>
     </div>

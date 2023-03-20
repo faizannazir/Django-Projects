@@ -6,9 +6,9 @@ from .models import Employee
 
 
 class EmployeeRegistrationForm(UserCreationForm):
-    email = forms.EmailField(required=True)
-    first_name = forms.CharField(required=True)
-    last_name = forms.CharField(required=True)
+    # email = forms.EmailField(required=True)
+    # first_name = forms.CharField(required=True)
+    # last_name = forms.CharField(required=True)
     department = forms.CharField(required=True)
     date_of_birth = forms.DateField(required=True, widget=forms.DateInput(attrs={'type':'date'}))
     joining_date = forms.DateField(required=True, widget=forms.DateInput(attrs={'type':'date'}))
@@ -23,25 +23,16 @@ class EmployeeLoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput(attrs={'id':'user_pass'}))
 
 
-# class EmployeeUpdateForm(forms.ModelForm):
-    
-#     class Meta:
-#         model = Employee
-#         fields = '__all__'
-#         exclude = ['user',]
-
-
-
 
 class EmployeeUpdateForm(forms.ModelForm):
     username = forms.CharField(required=True)
     email = forms.EmailField(required=True)
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
-    department = forms.CharField(required=True)
-    date_of_birth = forms.DateField(required=True, widget=forms.DateInput(attrs={'type':'date'}))
-    joining_date = forms.DateField(required=True, widget=forms.DateInput(attrs={'type':'date'}))
-    picture = forms.ImageField(required=True)
+    # department = forms.CharField(required=True)
+    # date_of_birth = forms.DateField(required=True, widget=forms.DateInput(attrs={'type':'date'}))
+    # joining_date = forms.DateField(required=True, widget=forms.DateInput(attrs={'type':'date'}))
+    # picture = forms.ImageField(required=True,label="Image")
 
     class Meta:
         model = Employee
@@ -63,6 +54,10 @@ class EmployeeUpdateForm(forms.ModelForm):
         user.save()
         employee = super().save(commit=False)
         employee.user = user
+
+        if 'picture' in self.files:
+            employee.picture = self.files['picture']
+            
         if commit:
             employee.save()
         return employee

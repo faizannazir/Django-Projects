@@ -2,12 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-User._meta.get_field('email')._unique = True
-User.REQUIRED_FIELDS.remove('email')
-User.USERNAME_FIELD = 'email'
-User._meta.get_field('username')._unique = False
-User.REQUIRED_FIELDS.append('username')
 
+User._meta.get_field('username')._unique = False
+User._meta.get_field('email')._unique = True
+User.USERNAME_FIELD = 'email'
+User.REQUIRED_FIELDS.remove('email')
+User.REQUIRED_FIELDS.append('username')
 
 
 class Employee(models.Model):
@@ -25,9 +25,9 @@ STATUS = (('Absent','ABSENT'),('Present',"PRESENT"))
 class Attendance(models.Model):
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE,related_name="attendance")
     date = models.DateField(auto_now_add=True)
-    entrance_time = models.TimeField(auto_now_add=True)
+    entrance_time = models.TimeField(null=True,blank=True)
     exit_time = models.TimeField(null=True,blank=True)
-    total_time = models.IntegerField(null=True,blank=True)
+    total_time = models.CharField(max_length=50,null=True,blank=True)
     status = models.CharField(max_length=10, blank=True,choices=STATUS)
     
     class Meta:
@@ -37,12 +37,3 @@ class Attendance(models.Model):
     def __str__(self):
         return self.employee.user.username + ' - ' + str(self.date)
 
-
-# class Leave(models.Model):
-#     employee = models.ForeignKey(Employee, on_delete=models.CASCADE,related_name="leaves")
-#     date = models.DateField()
-#     reason = models.CharField(max_length=200)
-#     approved = models.BooleanField(default=False)
-
-#     def __str__(self):
-#         return self.employee.user.username + ' - ' + self.reason
