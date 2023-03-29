@@ -14,10 +14,14 @@
 {% block body %}
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
+
+    {% comment%}
     <div>
         {{ form.username.label_tag }}
         {{ form.username }} <br>
     </div>
+
+    {% endcomment %}
     <div>
         {{ form.first_name.label_tag }}
         {{ form.first_name }} <br>

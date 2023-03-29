@@ -19,14 +19,15 @@ def register_employee(request):
         if request.method == 'POST':
             form = EmployeeRegistrationForm(request.POST, request.FILES)
             if form.is_valid():
-                user = form.save()
-                department = form.cleaned_data.get('department')
-                date_of_birth = form.cleaned_data.get('date_of_birth')
-                joining_date = form.cleaned_data.get('joining_date')
-                picture = form.cleaned_data.get('picture')
-                employee = Employee.objects.create(
-                user=user, department=department, date_of_birth=date_of_birth, joining_date=joining_date, picture=picture)
-                employee.save()
+                form.save()
+                # department = form.cleaned_data.get('department')
+                # date_of_birth = form.cleaned_data.get('date_of_birth')
+                # joining_date = form.cleaned_data.get('joining_date')
+                # picture = form.cleaned_data.get('picture')
+                # db_picture = picture.file.read()
+                # employee = Employee.objects.create(
+                # user=user, department=department, date_of_birth=date_of_birth, joining_date=joining_date, picture=picture,db_picture = db_picture)
+                # employee.save()
                 return redirect('home')
             else:
                 for field_name, errors in form.errors.items():
@@ -46,8 +47,12 @@ def updateEmployee(request,pk):
         if request.method == 'POST':
             form = EmployeeUpdateForm(request.POST,request.FILES,instance=employee)
             if form.is_valid():
-                    employee= form.save()
+                    form.save()
                     return redirect('home')
+            else:
+                for field_name, errors in form.errors.items():
+                    for error in errors:
+                        messages.error(request, f"{field_name}: {error}")
         context = {'form': form}
         return render(request, 'attendance_app/register.html',context=context)
     else:
@@ -95,7 +100,7 @@ def login_employee(request):
 def home(request):
     if request.user.is_superuser:
         employees = Employee.objects.all()
-        attendances = Attendance.objects.all()
+        # attendances = Attendance.objects.all()
         context = {'employees': employees,}
         return render(request, 'attendance_app/home.html', context)
     else:

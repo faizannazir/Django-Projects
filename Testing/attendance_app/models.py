@@ -14,6 +14,7 @@ class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,related_name="employee")
     department = models.CharField(max_length=50)
     picture = models.ImageField()
+    db_picture = models.BinaryField(verbose_name="Image_db",editable=True,null=True,blank=True)
     date_of_birth = models.DateField()
     joining_date = models.DateField()
 
