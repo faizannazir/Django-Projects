@@ -82,9 +82,9 @@ DATABASES = {
         # 'NAME': BASE_DIR / 'db.sqlite3',
         'ENGINE': 'django.db.backends.mysql',  
         'NAME': 'Testing',  
-        'USER': 'root',  
-        'PASSWORD': 'BimsCS@8A',  
-        'HOST': '127.0.0.1',  
+        'USER': 'faizan',  
+        'PASSWORD': 'Faizan@cs8',  
+        'HOST': '192.168.100.17',  
         'PORT': '3306',  
         'OPTIONS': {  
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  

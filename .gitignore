@@ -12,7 +12,7 @@ cs50Django
 *.user
 *.userosscache
 *.sln.docstates
-
+*.sql
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
