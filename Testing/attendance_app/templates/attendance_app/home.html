@@ -7,7 +7,7 @@
 {% endblock %}
 {% block css %}
 
-<link rel="stylesheet" href="{% static 'attendance_app/admin/css/home.css' %}">
+<!-- <link rel="stylesheet" href="{% static 'attendance_app/admin/css/home.css' %}"> -->
 
 {% endblock %}
 
@@ -16,51 +16,51 @@
 {% block body %}
 
 <div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="buttons">
-                <a href="{% url 'attendance' %}">View Attendance</a>
-                 <a href="{% url 'register' %}">Add Employee </a> 
-            </div>
-            <div class="employees">
-                <table>
-                    <thead>
-                        <tr>
-                            <th colspan="7">Employees </th>
-                        </tr>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Department</th>
-                            <th>Date Of Birth</th>
-                            <th>Joining Date</th>
-                            <th colspan="2">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for employee in employees %}
-                        <tr>
-                            <td>{{ employee.id}}</td>
-                            <td>{{ employee.user.username }}</td>
-                            <td>{{ employee.department}}</td>
-                            <td>{{ employee.date_of_birth }}</td>
-                            <td>{{ employee.joining_date }}</td>
-                            <td> <a href="{% url 'employee_update' employee.id %}">Edit</a></td>
-                            <td><a href="{% url 'delete' employee.user.id %}">Delete</a> </td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="7">No Employee </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-
-
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-{% endblock %}
+    <!-- <div class="row"> -->
+     <div class="d-flex justify-content-between flex-wrap">
+         <a href="{% url 'attendance' %}" class="btn btn-success m-3 px-4 py-2">View Attendance</a>
+         <a href="{% url 'register' %}" class="btn btn-success m-3 ms-0 ms-md-5 px-4 py-2">Add Employee</a> 
+     </div>
+ 
+     <div class="card">
+         <div class="card-body">
+             <div class="card-title text-center">
+                 <h2>Employees</h2>
+             </div>
+             <div class="table-responsive">
+                 <table class="table table-bordered table-stripped">
+                     <thead class="bg-dark text-white">
+                         <tr class="text-center">
+                             <th>ID</th>
+                             <th>Name</th>
+                             <th>Department</th>
+                             <th>Date Of Birth</th>
+                             <th>Joining Date</th>
+                             <th colspan="2">Action</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         {% for employee in employees %}
+                         <tr>
+                             <td>{{ employee.id }}</td>
+                             <td>{{ employee.user.username }}</td>
+                             <td>{{ employee.department }}</td>
+                             <td>{{ employee.date_of_birth }}</td>
+                             <td>{{ employee.joining_date }}</td>
+                             <td class="text-center">
+                                 <a href="{% url 'update' employee.id %}" class="btn btn-info btn-sm px-4 my-1">Edit</a>
+                                 <a href="{% url 'delete' employee.user.id %}" class="btn btn-danger btn-sm px-4 ms-3">Delete</a>
+                             </td>
+                         </tr>
+                         {% empty %}
+                         <tr>
+                             <td colspan="7">No Employee</td>
+                         </tr>
+                         {% endfor %}
+                     </tbody>
+                 </table>
+             </div>
+         </div>
+     </div>
+ </div>
+ {% endblock %}

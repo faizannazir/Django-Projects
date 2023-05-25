@@ -3,12 +3,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const name = document.getElementById('name');
     const email = document.getElementById('email');
     const contact = document.getElementById('contact');
-    const dob = document.getElementById('dob');
+    const dob = document.getElementById('birth');
     const id = document.getElementById('id');
-    const department = document.getElementById('department');
-    const image = document.getElementById('image');
-    const user_pass = document.getElementById("password");
-    const user_con_pass = document.getElementById("confirmpassword");
+    const department = document.getElementById('dep');
+    const image = document.getElementById('formFile');
+    const user_pass = document.getElementById("pass1");
+    const user_con_pass = document.getElementById("pass2");
     const error = document.getElementById("error");
     error.style.color = "red";
 

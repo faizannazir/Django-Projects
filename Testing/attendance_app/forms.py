@@ -7,9 +7,9 @@ from .models import Employee
 
 class EmployeeRegistrationForm(UserCreationForm):
     username = forms.CharField(widget=forms.HiddenInput(),required=False)
-    # email = forms.EmailField(required=True)
-    # first_name = forms.CharField(required=True)
-    # last_name = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
     department = forms.CharField(required=True)
     date_of_birth = forms.DateField(required=True, widget=forms.DateInput(attrs={'type':'date'}))
     joining_date = forms.DateField(required=True, widget=forms.DateInput(attrs={'type':'date'}))
@@ -65,7 +65,7 @@ class EmployeeUpdateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # self.fields['username'].initial = self.instance.user.username
+        self.fields['username'].initial = self.instance.user.username
         self.fields['email'].initial = self.instance.user.email
         self.fields['first_name'].initial = self.instance.user.first_name
         self.fields['last_name'].initial = self.instance.user.last_name

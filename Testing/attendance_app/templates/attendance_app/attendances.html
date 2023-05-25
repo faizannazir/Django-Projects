@@ -6,92 +6,123 @@
 
 <title>Attendance</title>
 {% endblock %}
-{% block css %}
-<link rel="stylesheet" href="{% static 'attendance_app/admin/css/attendance.css' %}">
-{% endblock %}
+
+{% block css %}{% endblock %}
+{% comment %}
+<!-- <link rel="stylesheet" href="{% static 'attendance_app/admin/css/attendance.css' %}"> -->
+
+{% endcomment %}
 
 
 
 
 {% block body%}
 
-<div class="filter-container">
+<div class="container">
 
-    <form action="">
-        <!-- {% csrf_token %} -->
-        <div class="form-items">
-            {{filter.form.employee.label_tag}}
-            <br>
-            {{filter.form.employee}}
-            <!-- <input type="date" name="date" id="start-date" required> -->
+    <div class="card mt-3 col-md-6 offset-md-3">
+  
+      <div class="card-body ">
+        <div class="card-title text-center bg-dark text-white">
+          <h3 class="pt-3">Apply Filter</h3>
+          <hr>
         </div>
-        <div class="form-items">
-            {{filter.form.start_date.label_tag}}
-            <br>
-            {{filter.form.start_date}}
-            <!-- <input type="date" name="date" id="start-date" required> -->
-        </div>
-        <br>
-        <div class="form-items">
-            {{filter.form.end_date.label_tag}}
-            <br>
-            {{filter.form.end_date}}
-            <!-- <input type="date" name="end-date" id="end-date" required> -->
-        </div>
-        <br>
-        <div class="form-items">
-            <!-- <br> -->
-            <input type="submit" value="Apply Filter" id="filter-btn">
-        </div>
-        <br>
+            <form action="" >
+                <!-- {% csrf_token %} -->
+                <div class="form-group mb-2">
+                    <!-- {{filter.form.employee.label_tag}} -->
+                    <label for="emp" class="form-label">{{filter.form.employee.label}}:</label>
+                    <select name="{{filter.form.employee.name}}" id="emp" class="form-select">
+                        {% for id in filter.form.employee %}
+                        {{id}}
+                        {% endfor %}
+                    </select>
 
-    </form>
+                    <!-- <input type="date" name="date" id="start-date" required> -->
+                </div>
+                <div class="form-group mb-2">
+                    <label for="start-date" class="form-label">{{filter.form.start_date.label}}:</label>
+                    <input type="date" name="{{filter.form.start_date.name}}" id="start-date"
+                        class="form-control datepicker" data-date-format="mm/dd/yyyy">
+                    <!-- <input type="date" name="date" id="start-date" required> -->
+                </div>
+
+                <div class="form-group mb-2">
+                    <label for="end-date">{{filter.form.end_date.label}}:</label>
+                    <input type="date" name="{{filter.form.end_date.name}}" id="end-date" class="form-control datepicker"
+                        data-date-format="mm/dd/yyyy">
+
+                    <!-- { -->
+                    <!-- <input type="date" name="end-date" id="end-date" required> -->
+                </div>
+                <br>
+                <div class="form-group mb-2 text-center">
+                    <!-- <br> -->
+                    <input type="submit" value="Apply Filter" id="filter-btn" class="btn btn-success px-5">
+                </div>
+                <br>
+
+            </form>
+        </div>
+    </div>
 </div>
-<div id="error"></div>
+
+<div id="error" class="text-center text-danger"></div>
 <br>
 
 <div class="container">
-    <div class="attendance">
-        <h1>Attendance Record</h1>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Date</th>
-                <th>Entrance Time</th>
-                <th>Exit Time</th>
-                <th>Total Time</th> 
-                <th>Attendance</th>
-            </tr>
-            {% for attendance in attendanceRecord %}
-            <tr>
-                <td>{{attendance.employee.id}}</td>
-                <td>{{ attendance.employee.user.username }}</td>
-                <td>{{attendance.date}}</td>
-                <td>{{attendance.entrance_time}}</td>
-                {% if attendance.exit_time is not None %}
-                <td>{{ attendance.exit_time }}</td>
-                {% else %}
-                <td>-</td>
-                {% endif %}
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title">
+                <h1>Attendance Record</h1>
+            </div>
+            <div class="table-responsive">
+                         <table class="table table-bordered table-stripped">
+                <thead class="bg-dark text-white">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Entrance Time</th>
+                        <th>Exit Time</th>
+                        <th>Total Time</th>
+                        <th>Attendance</th>
+                    </tr>
+                </thead>
 
-                {% if attendance.total_time is not None %}
-                <td>{{ attendance.total_time }}</td>
-                {% else %}
-                <td>-</td>
-                {% endif %}
-                {% if attendance.status is not None %}
-                <td>{{ attendance.status }}</td>
-                {% else %}
-                <td>-</td>
-                {% endif %}
-            </tr>
-            {% empty %}
-            <td colspan="7"> No Attendance record </td>
-            {% endfor %}
-        </table>
+                {% for attendance in attendanceRecord %}
+                <tr>
+                    <td>{{attendance.employee.id}}</td>
+                    <td>{{ attendance.employee.user.username }}</td>
+                    <td>{{attendance.date}}</td>
+                    <td>{{attendance.entrance_time}}</td>
+                    {% if attendance.exit_time is not None %}
+                    <td>{{ attendance.exit_time }}</td>
+                    {% else %}
+                    <td>-</td>
+                    {% endif %}
+
+                    {% if attendance.total_time is not None %}
+                    <td>{{ attendance.total_time }}</td>
+                    {% else %}
+                    <td>-</td>
+                    {% endif %}
+                    {% if attendance.status is not None %}
+                    <td>{{ attendance.status }}</td>
+                    {% else %}
+                    <td>-</td>
+                    {% endif %}
+                </tr>
+                {% empty %}
+                <td colspan="7"> No Attendance record </td>
+                {% endfor %}
+            </table>   
+            </div>
+        </div>
     </div>
 </div>
+
+
 
 <script src="{% static 'attendance_app/user/js/attendance.js' %}"></script>
 {% endblock %}

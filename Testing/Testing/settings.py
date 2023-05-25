@@ -9,9 +9,13 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import dotenv
 from pathlib import Path
 import os
+
+
+email = dotenv.get_variable('C:/Users/hp 840 G5/Desktop/practice/.fyp/env','email')
+password = dotenv.get_variable('C:/Users/hp 840 G5/Desktop/practice/.fyp/env','password')
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -31,6 +35,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +45,7 @@ INSTALLED_APPS = [
     # Installed apps
     'attendance_app',
     'django_filters',
+
 ]
 
 MIDDLEWARE = [
@@ -82,9 +88,9 @@ DATABASES = {
         # 'NAME': BASE_DIR / 'db.sqlite3',
         'ENGINE': 'django.db.backends.mysql',  
         'NAME': 'Testing',  
-        'USER': 'faizan',  
-        'PASSWORD': 'Faizan@cs8',  
-        'HOST': '192.168.100.17',  
+        'USER': 'root',  
+        'PASSWORD': 'BimsCS@8A',  
+        'HOST': 'localhost',  
         'PORT': '3306',  
         'OPTIONS': {  
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
@@ -111,6 +117,20 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 
 ]
+
+
+# SMTP Configuration
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = email
+EMAIL_HOST_PASSWORD = password
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+
+# EMAIL_PORT = 465
+# # EMAIL_USE_SSL = True
 
 
 # Internationalization

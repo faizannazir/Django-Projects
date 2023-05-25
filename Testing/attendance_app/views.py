@@ -54,7 +54,7 @@ def updateEmployee(request,pk):
                     for error in errors:
                         messages.error(request, f"{field_name}: {error}")
         context = {'form': form}
-        return render(request, 'attendance_app/register.html',context=context)
+        return render(request, 'attendance_app/edit.html',context=context)
     else:
         return redirect('home')
     

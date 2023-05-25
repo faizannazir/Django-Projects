@@ -1,6 +1,22 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from django.core.exceptions import ValidationError
+from django.utils import timezone
+import datetime
+
+# Validators
+
+def validate_not_after_today(value):
+    if value > timezone.now().date():
+        raise ValidationError("The date cannot be after today.")
+    
+def validate_at_least_18_years_old(value):
+    today = timezone.now().date()
+    delta = datetime.timedelta(days=18*365)
+    if value > today - delta:
+        raise ValidationError("User must be at least 18 years old.")
+
 
 
 User._meta.get_field('username')._unique = False
@@ -15,8 +31,8 @@ class Employee(models.Model):
     department = models.CharField(max_length=50)
     picture = models.ImageField()
     db_picture = models.BinaryField(verbose_name="Image_db",editable=True,null=True,blank=True)
-    date_of_birth = models.DateField()
-    joining_date = models.DateField()
+    date_of_birth = models.DateField(validators=[validate_at_least_18_years_old])
+    joining_date = models.DateField(validators=[validate_not_after_today])
 
     def __str__(self):
         return self.user.username

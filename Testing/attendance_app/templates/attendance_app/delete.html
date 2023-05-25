@@ -8,19 +8,19 @@
 
 {% endblock %}
 
-{% block css %}
+<!-- {% block css %}
 <link rel="stylesheet" href="{% static 'attendance_app/admin/css/delete.css' %}">
-{% endblock %}
+{% endblock %} -->
 
 {% block body %}
 
-<p> Are you sure you want to delete {{employee.username}}? </p>
+<p> Are you sure you want to delete <b>{{employee.username}}</b> account? </p>
 
 <form action="" method="post">
     {% csrf_token %}
 
-    <a href="{% url 'home' %}">Cancel</a>
-    <input type="submit" value="Confirm">
+    <a href="{% url 'home' %}" class="btn btn-success btn-lg ">Cancel</a>
+    <input type="submit" value="Confirm" class="btn btn-danger btn-lg ">
 
 </form>
 
