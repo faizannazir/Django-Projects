@@ -1,66 +1,106 @@
 {% extends 'attendance_app/base.html' %}
-
 {% load static %}
-
 {% block title %}
 <title>Dashboard</title>
 {% endblock %}
-{% block css %}
-
-<!-- <link rel="stylesheet" href="{% static 'attendance_app/admin/css/home.css' %}"> -->
-
-{% endblock %}
-
-
-
 {% block body %}
-
 <div class="container">
-    <!-- <div class="row"> -->
-     <div class="d-flex justify-content-between flex-wrap">
-         <a href="{% url 'attendance' %}" class="btn btn-success m-3 px-4 py-2">View Attendance</a>
-         <a href="{% url 'register' %}" class="btn btn-success m-3 ms-0 ms-md-5 px-4 py-2">Add Employee</a> 
-     </div>
- 
-     <div class="card">
-         <div class="card-body">
-             <div class="card-title text-center">
-                 <h2>Employees</h2>
-             </div>
-             <div class="table-responsive">
-                 <table class="table table-bordered table-stripped">
-                     <thead class="bg-dark text-white">
-                         <tr class="text-center">
-                             <th>ID</th>
-                             <th>Name</th>
-                             <th>Department</th>
-                             <th>Date Of Birth</th>
-                             <th>Joining Date</th>
-                             <th colspan="2">Action</th>
-                         </tr>
-                     </thead>
-                     <tbody>
-                         {% for employee in employees %}
-                         <tr>
-                             <td>{{ employee.id }}</td>
-                             <td>{{ employee.user.username }}</td>
-                             <td>{{ employee.department }}</td>
-                             <td>{{ employee.date_of_birth }}</td>
-                             <td>{{ employee.joining_date }}</td>
-                             <td class="text-center">
-                                 <a href="{% url 'update' employee.id %}" class="btn btn-info btn-sm px-4 my-1">Edit</a>
-                                 <a href="{% url 'delete' employee.user.id %}" class="btn btn-danger btn-sm px-4 ms-3">Delete</a>
-                             </td>
-                         </tr>
-                         {% empty %}
-                         <tr>
-                             <td colspan="7">No Employee</td>
-                         </tr>
-                         {% endfor %}
-                     </tbody>
-                 </table>
-             </div>
-         </div>
-     </div>
- </div>
- {% endblock %}
+    <div class="d-flex justify-content-between flex-wrap">
+        <a href="{% url 'attendance' %}" class="btn btn-success m-3 px-4 py-2">View Attendance</a>
+        <a href="{% url 'register' %}" class="btn btn-success m-3 ms-0 ms-md-5 px-4 py-2">Add Employee</a>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title text-center">
+                <h2>Employees</h2>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-stripped" id="myTable">
+                    <thead class="bg-dark text-white">
+                        <tr class="text-center">
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Department</th>
+                            <th>Date Of Birth</th>
+                            <th>Joining Date</th>
+                            <th colspan="2">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for employee in employees %}
+                        <tr>
+                            <td>{{ employee.id }}</td>
+                            <td>{{ employee.user.username }}</td>
+                            <td>{{ employee.department }}</td>
+                            <td>{{ employee.date_of_birth }}</td>
+                            <td>{{ employee.joining_date }}</td>
+                            <td class="text-center">
+                                <a href="{% url 'update' employee.id %}" class="btn btn-info btn-sm px-4 my-1">Edit</a>
+                                <a onclick="confirmDelete('{{ employee.user.id }}')"
+                                    class="btn btn-danger btn-sm px-4 ms-3">Delete</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7">No Employee</td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% csrf_token %}
+{% endblock %}
+{%block js%}
+
+<script>
+    function confirmDelete(Id) {
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // AJAX request to delete the data
+                $.ajax({
+                    type: 'POST',
+                    headers: { 'X-CSRFToken': csrfToken },
+                    data: {
+                        pk: Id
+                    },
+                    url: '/delete/' + Id + '/',
+                    success: function (response) {
+                        Swal.fire(
+                            'Deleted!',
+                            'User Account has been deleted.',
+                            'success'
+                        ).then((result) => {
+                            window.location.reload();
+                        });
+                    },
+                    error: function (xhr, textStatus, error) {
+                        // Handle the error case
+                        Swal.fire(
+                            'Error!',
+                            'An error occurred while deleting the data.',
+                            'error'
+                        );
+                    }
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire("Cancelled", "User not deleted :)", "error");
+            }
+        });
+    }
+
+
+</script>
+{% endblock %}

@@ -1,18 +1,9 @@
 {% extends 'attendance_app/user/base.html' %}
-
 {% load static %}
-
 {% block title %}
-
 <title>Home</title>
-
 {% endblock %}
-
-
-
 {% block body%}
-
-
 <div class="container">
     <div class="card my-3">
         <div class="card-body">
@@ -21,53 +12,53 @@
             </div>
             <div class="row">
                 <div class="col-md-8">
-            <div class="table-responsive pd-3">
-                <table class="table table-bordered table-stripped">
-                    <thead>
-                        <tr>
-                            <th colspan="2">User Information</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                    <div class="table-responsive pd-3">
+                        <table class="table table-bordered table-stripped">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">User Information</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                        <tr>
-                            <th>Name</th>
-                            <td>{{ employee.user.username }}</td>
-                        </tr>
-                        <tr>
-                            <th>ID</th>
-                            <td>{{ employee.id }}</td>
-                        </tr>
-                        <tr>
-                            <th>Department</th>
-                            <td>{{ employee.department }}</td>
-                        </tr>
-                        <tr>
-                            <th>Status</th>
-                            <td>
-                                {% if employee.user.is_active %}
-                                Active
-                                {% else %}
-                                Inactive
-                                {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Email</th>
-                            <td>{{ employee.user.email }}</td>
-                        </tr>
-                        <tr>
-                            <th>Joining Date</th>
-                            <td>{{ employee.joining_date }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                                <tr>
+                                    <th>Name</th>
+                                    <td>{{ employee.user.username }}</td>
+                                </tr>
+                                <tr>
+                                    <th>ID</th>
+                                    <td>{{ employee.id }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Department</th>
+                                    <td>{{ employee.department }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Status</th>
+                                    <td>
+                                        {% if employee.user.is_active %}
+                                        Active
+                                        {% else %}
+                                        Inactive
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Email</th>
+                                    <td>{{ employee.user.email }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Joining Date</th>
+                                    <td>{{ employee.joining_date }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="col-md-3 text-center">
-                            <img src="{{employee.picture.url}}" alt="{{employee.user.username}}" class="img-fluid  shadow" 
-                            style="width: 250px;
-                            height: 250px;
+                <div class="col-3 ml-2 text-center">
+                    <img src="{{employee.picture.url}}" alt="{{employee.user.username}}" class="img-fluid  shadow"
+                        style="width: 250px;
+                            height: 280px;
                             object-fit: cover;">
                 </div>
             </div>
@@ -75,65 +66,58 @@
         </div>
     </div>
 </div>
-
-
 <div class="container">
     <div class="card">
         <div class="card-body">
             <div class="card-title">
                 <h1>Attendance</h1>
             </div>
-    <div class="table-responsive">
-        <table class="table table-bordered table-stripped">
-            <thead class="bg-dark text-white">
-                <tr>
-                    <th>Date</th>
-                    <th>Entrance Time</th>
-                    <th>Exit Time</th>
-                    <th>Total Time</th>
-                    <th>Attendance</th>
-                </tr>
-            </thead>
+            <div class="table-responsive">
+                <table class="table table-bordered table-stripped">
+                    <thead class="bg-dark text-white">
+                        <tr>
+                            <th>Date</th>
+                            <th>Entrance Time</th>
+                            <th>Exit Time</th>
+                            <th>Total Time</th>
+                            <th>Attendance</th>
+                        </tr>
+                    </thead>
 
-            <tbody>
-                {% for attendance in attendances %}
-                <tr>
-                    <td>{{ attendance.date }}</td>
-                    <td>{{ attendance.entrance_time }}</td>
-                    {% if attendance.exit_time is not None %}
-                    <td>{{ attendance.exit_time }}</td>
-                    {% else %}
-                    <td>-</td>
-                    {% endif %}
+                    <tbody>
+                        {% for attendance in attendances %}
+                        <tr>
+                            <td>{{ attendance.date }}</td>
+                            <td>{{ attendance.entrance_time }}</td>
+                            {% if attendance.exit_time is not None %}
+                            <td>{{ attendance.exit_time }}</td>
+                            {% else %}
+                            <td>-</td>
+                            {% endif %}
 
-                    {% if attendance.total_time is not None %}
-                    <td>{{ attendance.total_time }}</td>
-                    {% else %}
-                    <td>-</td>
-                    {% endif %}
-                    {% if attendance.status is not None %}
-                    <td>{{ attendance.status }}</td>
-                    {% else %}
-                    <td>-</td>
-                    {% endif %}
-                </tr>
-                {% empty %}
-                <tr class="text-center">
-                    <td colspan="5">No attendance information available.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-       <div class="text-center">
-        <a href="{% url 'attendance' %}" class="btn btn-info btn-lg text-white">View-more</a>
-    </div>     
+                            {% if attendance.total_time is not None %}
+                            <td>{{ attendance.total_time }}</td>
+                            {% else %}
+                            <td>-</td>
+                            {% endif %}
+                            {% if attendance.status is not None %}
+                            <td>{{ attendance.status }}</td>
+                            {% else %}
+                            <td>-</td>
+                            {% endif %}
+                        </tr>
+                        {% empty %}
+                        <tr class="text-center">
+                            <td colspan="5">No attendance information available.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <a href="{% url 'attendance' %}" class="btn btn-info btn-lg text-white">View-more</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-</div>
-
-
-
-
-
 {% endblock %}

@@ -37,6 +37,16 @@ class Employee(models.Model):
     def __str__(self):
         return self.user.username
     
+    def clean(self):
+        super().clean()
+        validate_not_after_today(self.joining_date)
+        validate_at_least_18_years_old(self.date_of_birth)
+
+    def save(self, *args, **kwargs):
+        self.full_clean()  # Perform full validation before saving
+        super().save(*args, **kwargs)
+
+
 STATUS = (('Absent','ABSENT'),('Present',"PRESENT"))
 
 class Attendance(models.Model):

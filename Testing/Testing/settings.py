@@ -9,13 +9,10 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-import dotenv
+
 from pathlib import Path
 import os
 
-
-email = dotenv.get_variable('C:/Users/hp 840 G5/Desktop/practice/.fyp/env','email')
-password = dotenv.get_variable('C:/Users/hp 840 G5/Desktop/practice/.fyp/env','password')
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -84,8 +81,6 @@ WSGI_APPLICATION = 'Testing.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
         'ENGINE': 'django.db.backends.mysql',  
         'NAME': 'Testing',  
         'USER': 'root',  
@@ -119,19 +114,20 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# SMTP Configuration
+# Gmail SMTP Configuration
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = "email"
+# EMAIL_HOST_PASSWORD = "password"
+# EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = False
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = email
-EMAIL_HOST_PASSWORD = password
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
-
-# EMAIL_PORT = 465
-# # EMAIL_USE_SSL = True
-
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+# python -m smtpd -n -c DebuggingServer localhost:1025
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
@@ -168,6 +164,6 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
 MEDIA_URL = '/images/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+

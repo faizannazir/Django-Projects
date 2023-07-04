@@ -1,117 +1,108 @@
 {% extends 'attendance_app/base.html' %}
-
 {% load static %}
 {% block title %}
-
 <title>Update Employee </title>
-
 {% endblock %}
-
-{% block css %}
-<!-- <link rel="stylesheet" href="{% static 'attendance_app/admin/css/add.css' %}"> -->
-{% endblock %}
-
 {% block body %}
 <div class="container">
-
     <div class="card mt-3">
-  
-      <div class="card-body ">
-        <div class="card-title text-center bg-dark text-white">
-          <h3 class="pt-3">Update User Account</h3>
-          <hr>
+        <div class="card-body ">
+            <div class="card-title text-center bg-dark text-white">
+                <h3 class="pt-3">Update User Account</h3>
+                <hr>
+            </div>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="first_name" class="form-label">{{ form.first_name.label }}</label>
+                            <input type="text" id="first_name" name="{{ form.first_name.name }}"
+                                value="{{ form.first_name.value }}" class="form-control" required>
+                            <span class="text-danger">{{ form.first_name.errors}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="last_name" class="form-label">{{ form.last_name.label }}</label>
+                            <input type="text" id="last_name" name="{{ form.last_name.name }}"
+                                value="{{ form.last_name.value }}" class="form-control" required>
+                            <span class="text-danger">{{ form.last_name.errors}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="email" class="form-label">{{ form.email.label }}</label>
+                            <input type="email" id="email" name="{{ form.email.name }}" value="{{ form.email.value }}"
+                                class="form-control" required>
+                            <span class="text-danger">{{ form.email.errors}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="dep" class="form-label">{{ form.department.label }}</label>
+                            <input type="text" id="dep" name="{{ form.department.name }}"
+                                value="{{ form.department.value }}" class="form-control" required>
+                            <span class="text-danger">{{ form.department.errors}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="birth" class="form-label">{{ form.date_of_birth.label }}</label>
+                            <input type="date" id="birth" name="{{ form.date_of_birth.name }}"
+                                value="{{ form.date_of_birth.value|date:" Y-m-d" }}" class="form-control datepicker"
+                                data-date-format="mm/dd/yyyy" required>
+                            <span class="text-danger">{{ form.date_of_birth.errors}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="join" class="form-label">{{ form.joining_date.label }}</label>
+                            <input type="date" id="join" name="{{ form.joining_date.name }}"
+                                value="{{ form.joining_date.value|date:" Y-m-d" }}" class="form-control datepicker"
+                                data-date-format="mm/dd/yyyy" required>
+                            <span class="text-danger">{{ form.joining_date.errors}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <!-- offset-md-3 -->
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="formFile" class="form-label">{{ form.picture.label }}</label> <br>
+                            Current Picture : &nbsp;<a href="{{form.picture.value.url}}"> {{form.username.value}}</a>
+                            <div class="col-md-2">
+                                <div class="thumbnail">
+                                    <img src="{{form.picture.value.url}}" class="img-thumbnail rounded float-start "
+                                        style="display: inline;width: 80px;">
+                                </div>
+                            </div>
+                            <input class="form-control" type="file" id="formFile" name="{{ form.picture.name }}"
+                                value="{{ form.picture.value.url }}">
+                            <span class="text-danger">{{ form.picture.errors}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group text-center mt-3">
+                    <input type="submit" id="signin" value="Submit" class="btn btn-success px-5">
+                    <br>
+                </div>
+                <br>
+
+
+            </form>
         </div>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-
-    {% comment%}
-
-    {% endcomment %}
-    <div class="row g-3">
-        <div class="col-md-6">
-    <div class="form-group">
-        <label for="first_name" class="form-label">{{ form.first_name.label }}</label>
-        <input type="text" id="first_name" name="{{ form.first_name.name }}" value="{{ form.first_name.value }}" class="form-control" >
-     <span class="text-danger">{{ form.first_name.errors}}</span>
-    </div>
-        </div>
-        <div class="col-md-6">
-    <div class="form-group">
-        <label for="last_name" class="form-label">{{ form.last_name.label }}</label>
-        <input type="text" id="last_name" name="{{ form.last_name.name }}" value="{{ form.last_name.value }}" class="form-control">
-   <span class="text-danger">{{ form.last_name.errors}}</span>
-    </div>
-        </div>
-    </div>
-
-<div class="row g-3">
-    <div class="col-md-6">
-    <div class="form-group">
-        <label for="email" class="form-label">{{ form.email.label }}</label>
-        <input type="email" id="email" name="{{ form.email.name }}" value="{{ form.email.value }}"  class="form-control">
-    <span class="text-danger">{{ form.email.errors}}</span>
-    </div>
-    </div>
-    <div class="col-md-6">
-    <div class="form-group">
-        <label for="dep" class="form-label">{{ form.department.label }}</label>
-        <input type="text" id="dep" name="{{ form.department.name }}" value="{{ form.department.value }}" class="form-control">
-    <span class="text-danger">{{ form.department.errors}}</span>
-    </div>
     </div>
 </div>
+{% endblock %}
 
-<div class="row g-3">
-    <div class="col-md-6">
-    <div class="form-group">
-        <label for="birth" class="form-label">{{ form.date_of_birth.label }}</label>
-        <input type="date" id="birth" name="{{ form.date_of_birth.name }}" value="{{ form.date_of_birth.value|date:"Y-m-d" }}" class="form-control datepicker"
-        data-date-format="mm/dd/yyyy">
-        <span class="text-danger">{{ form.date_of_birth.errors}}</span>
-    </div>
-    </div>
-    <div class="col-md-6">
-    <div class="form-group">
-        <label for="join" class="form-label">{{ form.joining_date.label }}</label>
-        <input type="date" id="join" name="{{ form.joining_date.name }}" value="{{ form.joining_date.value|date:"Y-m-d" }}" 
-        class="form-control datepicker" data-date-format="mm/dd/yyyy">
-        <span class="text-danger">{{ form.joining_date.errors}}</span>
-    </div>
-    </div>
-</div>
-
-<div class="row g-3">
-    <!-- offset-md-3 -->
-    <div class="col-md-12">
-       <div class="form-group">
-        <label for="formFile" class="form-label">{{ form.picture.label }}</label> <br>
-        Current Picture : &nbsp;<a href="{{form.picture.value.url}}"> {{form.username.value}}</a>
-        <div class="col-md-2">
-     <div class="thumbnail">
-    <img src="{{form.picture.value.url}}" class="img-thumbnail rounded float-start " style="display: inline;width: 80px;">
-</div>       
-        </div>
-
-
-        <input class="form-control" type="file" id="formFile" name="{{ form.picture.name }}" value="{{ form.picture.value.url }}">
-        <span class="text-danger">{{ form.picture.errors}}</span>
-    </div>     
-    </div>
-</div>
-
-    <div class="form-group text-center mt-3">
-        <input type="submit" id="signin" value="Submit" class="btn btn-success px-5">
-        <br>
-    </div>
-    <br>
-    <!-- <div class="text-center text-danger">
-        {% for message in messages %}
-        {{message}}
-        {% endfor %}
-    </div> -->
-
-</form>
-</div>
-</div>
-</div>
+{%block js%}
+<script src="{% static 'attendance_app/admin/js/editValidation.js' %}"></script>
 {% endblock %}

@@ -2,6 +2,20 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Employee
+from django.core.exceptions import ValidationError
+from django.utils import timezone
+import datetime
+
+
+def validate_not_after_today(value):
+    if value > timezone.now().date():
+        raise ValidationError("The date cannot be after today.")
+    
+def validate_at_least_18_years_old(value):
+    today = timezone.now().date()
+    delta = datetime.timedelta(days=18*365)
+    if value > today - delta:
+        raise ValidationError("User must be at least 18 years old.")
 
 
 
@@ -11,8 +25,8 @@ class EmployeeRegistrationForm(UserCreationForm):
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
     department = forms.CharField(required=True)
-    date_of_birth = forms.DateField(required=True, widget=forms.DateInput(attrs={'type':'date'}))
-    joining_date = forms.DateField(required=True, widget=forms.DateInput(attrs={'type':'date'}))
+    date_of_birth = forms.DateField(required=True,validators=[validate_at_least_18_years_old], widget=forms.DateInput(attrs={'type':'date'}))
+    joining_date = forms.DateField(required=True,validators=[validate_not_after_today] ,widget=forms.DateInput(attrs={'type':'date'}))
     picture = forms.ImageField(required=True)
     db_picture = forms.CharField(widget=forms.HiddenInput(),required=False)
     class Meta:
@@ -23,12 +37,13 @@ class EmployeeRegistrationForm(UserCreationForm):
         user = super().save(commit=False)
         user.username = f"{user.first_name}{user.last_name}"
         user.email = self.cleaned_data.get('email')
-        user.save()
         department = self.cleaned_data.get('department')
         date_of_birth = self.cleaned_data.get('date_of_birth')
         joining_date = self.cleaned_data.get('joining_date')
         picture = self.cleaned_data.get('picture')
         db_picture = picture.file.read()
+
+        user.save()
         employee = Employee.objects.create(
             user=user, department=department, date_of_birth=date_of_birth, joining_date=joining_date,
             picture=picture, db_picture=db_picture
@@ -54,9 +69,9 @@ class EmployeeUpdateForm(forms.ModelForm):
     email = forms.EmailField(required=True)
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
-    # department = forms.CharField(required=True)
-    # date_of_birth = forms.DateField(required=True, widget=forms.DateInput(attrs={'type':'date'}))
-    # joining_date = forms.DateField(required=True, widget=forms.DateInput(attrs={'type':'date'}))
+    department = forms.CharField(required=True)
+    date_of_birth = forms.DateField(required=True,validators=[validate_at_least_18_years_old] ,widget=forms.DateInput(attrs={'type':'date'}))
+    joining_date = forms.DateField(required=True, validators=[validate_not_after_today],widget=forms.DateInput(attrs={'type':'date'}))
     # picture = forms.ImageField(required=True,label="Image")
 
     class Meta:
