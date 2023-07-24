@@ -30,13 +30,13 @@
                         {% for employee in employees %}
                         <tr>
                             <td>{{ employee.id }}</td>
-                            <td>{{ employee.user.username }}</td>
+                            <td>{{ employee.username }}</td>
                             <td>{{ employee.department }}</td>
                             <td>{{ employee.date_of_birth }}</td>
                             <td>{{ employee.joining_date }}</td>
                             <td class="text-center">
                                 <a href="{% url 'update' employee.id %}" class="btn btn-info btn-sm px-4 my-1">Edit</a>
-                                <a onclick="confirmDelete('{{ employee.user.id }}')"
+                                <a onclick="confirmDelete('{{ employee.id }}')"
                                     class="btn btn-danger btn-sm px-4 ms-3">Delete</a>
                             </td>
                         </tr>

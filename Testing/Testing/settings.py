@@ -84,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',  
         'NAME': 'Testing',  
         'USER': 'root',  
-        'PASSWORD': 'BimsCS@8A',  
+        'PASSWORD': '',  
         'HOST': 'localhost',  
         'PORT': '3306',  
         'OPTIONS': {  

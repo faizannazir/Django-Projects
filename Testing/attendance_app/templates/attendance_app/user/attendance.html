@@ -58,7 +58,7 @@
                     {% for attendance in attendanceRecord %}
                     <tr>
                         <td>{{attendance.employee.id}}</td>
-                        <td>{{ attendance.employee.user.username }}</td>
+                        <td>{{ attendance.employee.username }}</td>
                         <td>{{attendance.date}}</td>
                         <td>{{attendance.entrance_time}}</td>
                         {% if attendance.exit_time is not None %}

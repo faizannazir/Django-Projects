@@ -8,7 +8,7 @@
     <div class="card my-3">
         <div class="card-body">
             <div class="card-title bg-dark text-white py-2 ps-2">
-                <h1>{{ employee.user.username }} Account</h1>
+                <h1>{{ employee.username }} Account</h1>
             </div>
             <div class="row">
                 <div class="col-md-8">
@@ -23,7 +23,7 @@
 
                                 <tr>
                                     <th>Name</th>
-                                    <td>{{ employee.user.username }}</td>
+                                    <td>{{ employee.first_name }}{{ employee.last_name }}</td>
                                 </tr>
                                 <tr>
                                     <th>ID</th>
@@ -36,7 +36,7 @@
                                 <tr>
                                     <th>Status</th>
                                     <td>
-                                        {% if employee.user.is_active %}
+                                        {% if employee.is_active %}
                                         Active
                                         {% else %}
                                         Inactive
@@ -45,7 +45,7 @@
                                 </tr>
                                 <tr>
                                     <th>Email</th>
-                                    <td>{{ employee.user.email }}</td>
+                                    <td>{{ employee.email }}</td>
                                 </tr>
                                 <tr>
                                     <th>Joining Date</th>
@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <div class="col-3 ml-2 text-center">
-                    <img src="{{employee.picture.url}}" alt="{{employee.user.username}}" class="img-fluid  shadow"
+                    <img src="{{employee.picture.url}}" alt="{{employee.username}}" class="img-fluid  shadow"
                         style="width: 250px;
                             height: 280px;
                             object-fit: cover;">

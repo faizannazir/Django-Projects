@@ -6,7 +6,6 @@ from django.utils import timezone
 import datetime
 
 # Validators
-
 def validate_not_after_today(value):
     if value > timezone.now().date():
         raise ValidationError("The date cannot be after today.")
@@ -26,31 +25,17 @@ User.REQUIRED_FIELDS.remove('email')
 User.REQUIRED_FIELDS.append('username')
 
 
-class Employee(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE,related_name="employee")
+class AppUser(User):
     department = models.CharField(max_length=50)
     picture = models.ImageField()
     db_picture = models.BinaryField(verbose_name="Image_db",editable=True,null=True,blank=True)
     date_of_birth = models.DateField(validators=[validate_at_least_18_years_old])
     joining_date = models.DateField(validators=[validate_not_after_today])
-
-    def __str__(self):
-        return self.user.username
     
-    def clean(self):
-        super().clean()
-        validate_not_after_today(self.joining_date)
-        validate_at_least_18_years_old(self.date_of_birth)
-
-    def save(self, *args, **kwargs):
-        self.full_clean()  # Perform full validation before saving
-        super().save(*args, **kwargs)
-
-
 STATUS = (('Absent','ABSENT'),('Present',"PRESENT"))
 
 class Attendance(models.Model):
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE,related_name="attendance")
+    employee = models.ForeignKey(AppUser, on_delete=models.CASCADE,related_name="attendance")
     date = models.DateField(auto_now_add=True)
     entrance_time = models.TimeField(null=True,blank=True)
     exit_time = models.TimeField(null=True,blank=True)
