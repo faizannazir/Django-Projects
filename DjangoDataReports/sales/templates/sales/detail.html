@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Sales List
+{% endblock %}  
+
+
+{% block content %}
+Detail
+
+    <li>{{ object.transaction_id }}</li>
+    <li>{{ object.positions }}</li>
+    <li>{{ object.total_price }}</li>
+    <li>{{ object.customer }}</li>
+    <li>{{ object.salesman.user.username }}</li>
+    <li>{{ object.created }}</li>
+    <li>{{ object.updated }}</li>
+
+{% endblock %}  

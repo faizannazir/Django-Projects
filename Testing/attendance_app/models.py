@@ -32,9 +32,10 @@ class AppUser(User):
     date_of_birth = models.DateField(validators=[validate_at_least_18_years_old])
     joining_date = models.DateField(validators=[validate_not_after_today])
     
-STATUS = (('Absent','ABSENT'),('Present',"PRESENT"))
+
 
 class Attendance(models.Model):
+    STATUS = (('Absent','ABSENT'),('Present',"PRESENT"))
     employee = models.ForeignKey(AppUser, on_delete=models.CASCADE,related_name="attendance")
     date = models.DateField(auto_now_add=True)
     entrance_time = models.TimeField(null=True,blank=True)
