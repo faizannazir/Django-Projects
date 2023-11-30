@@ -7,3 +7,6 @@ class Books(models.Model):
     author = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=5,decimal_places=2)
     inventory = models.IntegerField()
+
+    class Meta:
+        indexes = [models.Index(fields=['price']),]

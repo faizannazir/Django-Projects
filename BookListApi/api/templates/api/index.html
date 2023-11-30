@@ -19,12 +19,12 @@ Home
             <th>Prie</th>
             <th>Inventory</th>
         </tr>
+              {% for book in books %}      
         <tr>
-            {% for book in books %}
-            <td>book.title</td>
-            <td>book.author</td>
-            <td>book.price</td>
-            <td>book.inventory</td>
+            <td>{{book.title}}</td>
+            <td>{{book.author}}</td>
+            <td>{{book.price}}</td>
+            <td>{{book.inventory}}</td>
             {% empty %}
             <td colspan="3">No data found</td>
             {% endfor %}
